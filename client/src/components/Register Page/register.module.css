@@ -1,0 +1,386 @@
+/* register.module.css */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Manrope', sans-serif;
+  min-height: 100vh;
+}
+
+.content {
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 480px;
+  width: 100%;
+  padding: 40px 36px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.logoWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.logoText {
+  color: #2d3748;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: #2d3748;
+  letter-spacing: -0.5px;
+}
+
+.formSection {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  position: relative;
+}
+
+.formSection:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #660DD4;
+  margin-bottom: 16px;
+  margin-top: 0;
+  position: relative;
+  padding-left: 12px;
+}
+
+.sectionTitle::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 16px;
+  background: linear-gradient(135deg, #660DD4 0%, #553c9a 100%);
+  border-radius: 2px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.label {
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.input {
+  padding: 14px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Manrope', sans-serif;
+  transition: all 0.2s ease;
+  background: white;
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #660DD4;
+  box-shadow: 0 0 0 3px rgba(102, 13, 212, 0.1);
+}
+
+.input::placeholder {
+  color: #a0aec0;
+}
+
+.inputError {
+  border-color: #e53e3e !important;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1) !important;
+}
+
+/* Phone Input Styling */
+/* Main phone input container */
+:global(.react-tel-input) {
+  width: 100% !important;
+}
+
+/* The actual input field */
+:global(.react-tel-input .form-control) {
+  width: 100% !important;
+  height: auto !important;
+  padding: 14px 16px 14px 58px !important;
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  font-size: 16px !important;
+  font-family: 'Manrope', sans-serif !important;
+  background: white !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+}
+
+/* Focus state */
+:global(.react-tel-input .form-control:focus) {
+  box-shadow: 0 0 0 3px rgba(102, 13, 212, 0.1) !important;
+  outline: none !important;
+}
+
+/* Error state */
+:global(.react-tel-input .form-control.error) {
+  border-color: #e53e3e !important;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1) !important;
+}
+
+/* Flag dropdown */
+:global(.react-tel-input .flag-dropdown) {
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 8px 0 0 8px !important;
+  background: white !important;
+  height: 100% !important;
+}
+
+/* Selected flag */
+:global(.react-tel-input .selected-flag) {
+  padding: 0 8px 0 12px !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Disabled state */
+:global(.react-tel-input .form-control:disabled) {
+  background-color: #f7fafc !important;
+  cursor: not-allowed !important;
+  opacity: 0.6 !important;
+}
+
+.passwordContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordInput {
+  padding-right: 48px !important;
+}
+
+.eye_icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.eye_icon:hover:not(:disabled) {
+  background-color: #f7fafc;
+}
+
+.eye_icon:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.icon {
+  color: #718096;
+  font-size: 20px;
+}
+
+.error {
+  color: #e53e3e;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.serverError {
+  background: #fed7d7;
+  color: #c53030;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #feb2b2;
+  margin-bottom: 16px;
+}
+
+.signInButton {
+  background: linear-gradient(135deg, #660DD4 0%, #553c9a 100%);
+  color: white;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  margin-top: 8px;
+}
+
+.signInButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(102, 13, 212, 0.3);
+}
+
+.signInButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.signInButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none !important;
+}
+
+.loading {
+  background: linear-gradient(135deg, #718096 0%, #4a5568 100%) !important;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.account {
+  text-align: center;
+  color: #718096;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.account a {
+  color: #660DD4;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.account a:hover {
+  color: #553c9a;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .content {
+    padding: 16px;
+  }
+  
+  .section {
+    padding: 32px 24px;
+    gap: 24px;
+    max-width: 100%;
+  }
+  
+  .title {
+    font-size: 22px;
+  }
+  
+  .input {
+    padding: 12px 14px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .react-tel-input .form-control {
+    padding: 12px 14px 12px 54px !important;
+  }
+}
+
+/* Focus styles for accessibility */
+.signInButton:focus-visible,
+.eye_icon:focus-visible,
+.account a:focus-visible {
+  outline: 2px solid #660DD4;
+  outline-offset: 2px;
+}
+
+/* Loading state for form */
+.formLoading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.formLoading .input,
+.formLoading .react-tel-input .form-control {
+  background-color: #f7fafc !important;
+}
