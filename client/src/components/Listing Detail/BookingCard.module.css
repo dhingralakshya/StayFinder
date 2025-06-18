@@ -1,0 +1,329 @@
+/* BookingCard.module.css */
+.bookingCard {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  position: sticky;
+  top: 2rem;
+}
+
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1a202c;
+}
+
+.night {
+  color: #64748b;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.rating {
+  color: #475569;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Date Section */
+.dateSection {
+  position: relative;
+}
+
+.dateInputs {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.dateInputs:hover {
+  border-color: #cbd5e0;
+}
+
+.dateInput {
+  padding: 0.75rem;
+  background: #fff;
+  transition: background-color 0.2s;
+}
+
+.dateInput:hover {
+  background: #f8fafc;
+}
+
+.dateInput label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  margin-bottom: 0.25rem;
+}
+
+.dateValue {
+  font-size: 0.875rem;
+  color: #1a202c;
+  font-weight: 500;
+}
+
+.dateDivider {
+  background: #e2e8f0;
+  width: 1px;
+}
+
+/* Date Picker */
+.datePickerWrapper {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.dayPicker {
+  --rdp-accent-color: #660DD4;
+  --rdp-background-color: #660DD4;
+}
+
+.datePickerFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 1rem;
+}
+
+.datePickerClose {
+  background: #660DD4;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.datePickerHint {
+  text-align: center;
+  color: #64748b;
+  font-size: 0.875rem;
+  margin: 1rem 0 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Guest Section */
+.guestSection {
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.guestSelector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.guestInfo label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  margin-bottom: 0.25rem;
+}
+
+.guestCount {
+  font-size: 0.875rem;
+  color: #1a202c;
+  font-weight: 500;
+}
+
+.guestControls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.guestBtn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #d1d5db;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s;
+}
+
+.guestBtn:hover:not(:disabled) {
+  border-color: #660DD4;
+  color: #660DD4;
+}
+
+.guestBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.guestNumber {
+  font-weight: 600;
+  color: #1a202c;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Form Elements */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputGroup label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.textarea {
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s;
+}
+
+.textarea:focus {
+  border-color: #660DD4;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 13, 212, 0.1);
+}
+
+/* Summary */
+.summary {
+  padding: 1rem 0;
+  border-top: 1px solid #e2e8f0;
+  margin: 0.5rem 0;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: #4a5568;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1a202c;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Button */
+.bookBtn {
+  background: linear-gradient(135deg, #660DD4 0%, #7c3aed 100%);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.bookBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5a0bb8 0%, #6d28d9 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 13, 212, 0.3);
+}
+
+.bookBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.error {
+  color: #dc2626;
+  background: #fef2f2;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  text-align: center;
+  border: 1px solid #fecaca;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .bookingCard {
+    position: static;
+    margin-top: 0;
+  }
+  
+  .dateInputs {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1px 1fr;
+  }
+  
+  .dateDivider {
+    height: 1px;
+    width: 100%;
+  }
+  
+  .datePickerWrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+}
