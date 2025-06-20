@@ -20,6 +20,16 @@ const getListing = async (req, res) => {
   }
 };
 
+const getListingsByHost = async (req, res) => {
+  try {
+    const hostId = req.user.id;
+    const listings = await listingService.getListingsByHost(hostId);
+    res.status(200).json(listings);
+  } catch (err) {
+    res.status(500).json({ message: err.message || "Server error" });
+  }
+};
+
 // Get all listings
 const getAllListings = async (req, res) => {
   try {
@@ -38,9 +48,9 @@ const getAllListings = async (req, res) => {
 // Create a new listing (host only)
 const createListing = async (req, res) => {
   try {
-    const { title, description, price, location } = req.body;
+    const { title, description, price, location, imageUrls } = req.body;
     const hostId = req.user.id;
-    const newListing = await listingService.createListing(title, description, price, location, hostId);
+    const newListing = await listingService.createListing(title, description, price, location, hostId, imageUrls);
     res.status(201).json(newListing);
   } catch (err) {
     if (err instanceof HttpErrors) {
@@ -89,6 +99,7 @@ const deleteListing = async (req, res) => {
 
 module.exports = {
   getListing,
+  getListingsByHost,
   getAllListings,
   createListing,
   editListing,

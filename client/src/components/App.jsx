@@ -5,6 +5,8 @@ import Register from "./Register Page/Register";
 // import ProtectedRoute from "./ProtectedRoute";
 import ListingsPage from "./Listing/ListingsPage";
 import ListingDetailPage from "./Listing Detail/ListingDetailPage";
+import HostDashboard from "./HostDashboard/HostDashboard";
+import CreateListingForm from "./HostDashboard/CreateListingForm";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<ListingsPage />} />
         <Route path="/listing/:id" element={<ListingDetailPage />} />
+        <Route path="/host/dashboard" element={<HostDashboard />} />
+        <Route path="/host/listing/new" element={<CreateListingForm />} />
       </Routes>
     </Router>
   );

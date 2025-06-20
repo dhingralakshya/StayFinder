@@ -7,12 +7,18 @@ function ListingCard({ listing }) {
     e.target.src = '/placeholder-image.jpg';
   };
 
+  // Use the first image from imageUrls array if available
+  const imageSrc =
+    listing.imageUrls && listing.imageUrls.length > 0
+      ? listing.imageUrls[0]
+      : `https://source.unsplash.com/400x250/?apartment,home,${listing.id}`;
+
   return (
     <article className={styles.card}>
       <Link to={`/listing/${listing.id}`} className={styles.link}>
         <div className={styles.imageWrapper}>
           <img
-            src={listing.image || `https://source.unsplash.com/400x250/?apartment,home,${listing.id}`}
+            src={imageSrc}
             alt={`${listing.title} - Property in ${listing.location}`}
             className={styles.image}
             onError={handleImageError}

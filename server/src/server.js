@@ -15,6 +15,7 @@ const listingRoutes = require('./routes/listing');
 
 app.use(cors());
 app.use(express.json());
+app.use("/imagekit", require("./routes/imagekitAuth"));
 
 // Routes
 app.use('/users', userRoutes);

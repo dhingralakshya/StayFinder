@@ -19,6 +19,14 @@ const getListing = async (id) => {
   return listing;
 };
 
+const getListingsByHost = async (hostId) => {
+  const listings = await ListingModel.findAll({
+    where: { hostId },
+    order: [['createdAt', 'DESC']]
+  });
+  return listings;
+};
+
 // Fetch all listings
 const getAllListings = async () => {
   const listings = await ListingModel.findAll({
@@ -35,7 +43,7 @@ const getAllListings = async () => {
 };
 
 // Create a new listing (host only)
-const createListing = async (title, description, price, location, hostId) => {
+const createListing = async (title, description, price, location, hostId, imageUrls) => {
   const host = await UserModel.findByPk(hostId);
   if (!host || host.role !== 'host') {
     throw new HttpErrors('Only hosts can create listings.', 403);
@@ -46,7 +54,8 @@ const createListing = async (title, description, price, location, hostId) => {
     description,
     price,
     location,
-    hostId
+    hostId,
+    imageUrls
   });
 
   return newListing;
@@ -81,6 +90,7 @@ const deleteListing = async (id, hostId) => {
 
 module.exports = {
   getListing,
+  getListingsByHost,
   getAllListings,
   createListing,
   editListing,

@@ -78,13 +78,30 @@ function ListingDetailPage() {
 
         <div className={styles.content}>
           <div className={styles.left}>
-            <div className={styles.imageWrapper}>
-              <img
-                src={listing.image || `https://source.unsplash.com/800x400/?apartment,home,${listing.id}`}
-                alt={`${listing.title} - Property in ${listing.location}`}
-                className={styles.image}
-                onError={handleImageError}
-              />
+            {/* Fixed Image Gallery */}
+            <div className={styles.imageGalleryWrapper}>
+              {listing.imageUrls && listing.imageUrls.length > 0 ? (
+                <div className={styles.galleryScroll}>
+                  {listing.imageUrls.map((url, idx) => (
+                    <img
+                      key={idx}
+                      src={url}
+                      alt={`${listing.title} - Image ${idx + 1}`}
+                      className={styles.galleryImage}
+                      onError={handleImageError}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className={styles.singleImageWrapper}>
+                  <img
+                    src={`https://source.unsplash.com/800x400/?apartment,home,${listing.id}`}
+                    alt={`${listing.title} - Property in ${listing.location}`}
+                    className={styles.singleImage}
+                    onError={handleImageError}
+                  />
+                </div>
+              )}
             </div>
             
             <div className={styles.info}>

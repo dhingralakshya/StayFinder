@@ -35,6 +35,11 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
+      imageUrls: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        allowNull: false,
+        defaultValue: []
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

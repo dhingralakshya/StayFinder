@@ -49,6 +49,11 @@ module.exports = (sequelize, DataTypes) => {
           key: 'id'
         }
       },
+      imageUrls: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false,
+        defaultValue: [],
+      },
       createdAt: {
         type: DataTypes.DATE,
         allowNull: false,

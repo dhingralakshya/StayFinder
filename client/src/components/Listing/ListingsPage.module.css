@@ -1,43 +1,160 @@
 /* ListingsPage.module.css */
 .page {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
   min-height: 100vh;
+  background: #fff;
 }
 
-.header {
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, #660DD4 0%, #8b5cf6 100%);
+  color: white;
+  padding: 4rem 1.5rem 3rem;
   text-align: center;
-  margin-bottom: 3rem;
 }
 
-.heading {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 800;
-  color: #660DD4;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   line-height: 1.2;
 }
 
-.subtitle {
-  font-size: 1.125rem;
-  color: #64748b;
+.heroSubtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
   margin: 0;
   font-weight: 400;
+}
+
+/* Search Section */
+.searchSection {
+  background: #f8fafc;
+  padding: 2rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.searchContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.searchBar {
+  margin-bottom: 1.5rem;
+}
+
+.searchInput {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #6b7280;
+}
+
+.searchField {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 50px;
+  font-size: 1rem;
+  background: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.searchField:focus {
+  outline: none;
+  border-color: #660DD4;
+  box-shadow: 0 0 0 3px rgba(102, 13, 212, 0.1);
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.filterInput {
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: white;
+  min-width: 120px;
+  transition: border-color 0.2s;
+}
+
+.filterInput:focus {
+  outline: none;
+  border-color: #660DD4;
+}
+
+.clearFilters {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clearFilters:hover {
+  background: #e5e7eb;
+}
+
+/* Results Section */
+.resultsSection {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.resultsHeader {
+  margin-bottom: 2rem;
+}
+
+.resultsHeader h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
-  gap: clamp(1rem, 3vw, 2rem);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
 }
 
+/* Error and Empty States */
 .error {
   text-align: center;
   padding: 3rem 1rem;
   background: #fef2f2;
   border-radius: 12px;
   border: 1px solid #fecaca;
+  margin: 2rem auto;
+  max-width: 600px;
 }
 
 .error h2 {
@@ -64,13 +181,67 @@
 .emptyState {
   grid-column: 1 / -1;
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 4rem 1rem;
   color: #64748b;
 }
 
-/* Responsive adjustments */
+.emptyState h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.resetBtn {
+  background: #660DD4;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s;
+}
+
+.resetBtn:hover {
+  background: #5a0bb8;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .filters {
+    justify-content: flex-start;
+  }
+}
+
 @media (max-width: 768px) {
-  .page {
+  .headerContent {
+    padding: 1rem;
+  }
+  
+  .logoText {
+    display: none;
+  }
+  
+  .hero {
+    padding: 3rem 1rem 2rem;
+  }
+  
+  .searchSection {
+    padding: 1.5rem 1rem;
+  }
+  
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .filterInput {
+    min-width: auto;
+  }
+  
+  .resultsSection {
     padding: 1.5rem 1rem;
   }
   
@@ -80,7 +251,25 @@
 }
 
 @media (max-width: 480px) {
-  .page {
+  .nav {
+    gap: 0.5rem;
+  }
+  
+  .navBtn,
+  .loginBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .hero {
+    padding: 2rem 0.75rem 1.5rem;
+  }
+  
+  .searchSection {
+    padding: 1rem 0.75rem;
+  }
+  
+  .resultsSection {
     padding: 1rem 0.75rem;
   }
   
