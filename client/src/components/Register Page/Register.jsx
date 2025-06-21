@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
@@ -16,6 +16,8 @@ function Register() {
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const role = new URLSearchParams(location.search).get("role");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -62,7 +64,8 @@ function Register() {
         body: JSON.stringify({
           name: form.name,
           email: form.email,
-          password: form.password
+          password: form.password,
+          ...(role ? { role } : {})
         })
       });
       if (!res.ok) {

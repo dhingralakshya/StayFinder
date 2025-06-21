@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
@@ -7,6 +7,7 @@ import styles from "./login.module.css";
 
 function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -16,6 +17,7 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState({});
 
+  const redirect = new URLSearchParams(location.search).get("redirect");
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const togglePasswordVisibility = () => {
@@ -87,10 +89,12 @@ function Login() {
       localStorage.setItem("token", data.token);
       const decoded = jwtDecode(data.token);
 
-      if (decoded.role === "host") {
+      if (redirect) {
+        navigate(redirect, { replace: true });
+      } else if (decoded.role === "host") {
         navigate("/host/dashboard");
       } else {
-        navigate("/dashboard");
+        navigate("/");
       }
     } catch (err) {
       setErrorMessage(

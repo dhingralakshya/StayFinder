@@ -10,6 +10,6 @@ router.post('/login', userController.loginUser);
 // Protected routes (require authentication)
 router.get('/', userController.getAllUsers);
 router.get('/:id', verifyJWT, userController.getUser);
-router.put('/:id', verifyJWT, userController.editUser);
+router.patch('/:id', verifyJWT, userController.editUser);
 
 module.exports = router;

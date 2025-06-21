@@ -68,3 +68,72 @@
 .loginBtn:hover {
   background: #5a0bb8;
 }
+.profileWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profileBtn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  color: #660DD4;
+  padding: 6px 12px;
+  border-radius: 50px;
+  transition: background 0.2s;
+}
+
+.profileBtn:hover {
+  background: #f1f5f9;
+}
+
+.avatar {
+  background: #660DD4;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.caret {
+  font-size: 12px;
+  margin-left: 2px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(102, 13, 212, 0.13);
+  min-width: 120px;
+  z-index: 100;
+}
+
+.dropdownItem {
+  padding: 12px 18px;
+  color: #660DD4;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background 0.2s;
+}
+
+.dropdownItem:last-child {
+  border-bottom: none;
+}
+
+.dropdownItem:hover {
+  color: #5a0bb8;
+}

@@ -1,0 +1,119 @@
+.centeredCard {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+}
+
+.card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(102, 13, 212, 0.10);
+  padding: 40px 32px;
+  min-width: 340px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.heading {
+  color: #660DD4;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.propertyInfo {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.propertyImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid #eee;
+  background: #f1f5f9;
+}
+
+.propertyTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0;
+}
+
+.propertyLocation {
+  color: #660DD4;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 2px 0 0 0;
+}
+
+.details {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 16px;
+}
+
+.label {
+  color: #64748b;
+  font-weight: 500;
+  margin-right: 6px;
+}
+
+.price {
+  color: #660DD4;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.confirmBtn {
+  background: linear-gradient(90deg, #660DD4 0%, #7a5fff 100%);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 0;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(102, 13, 212, 0.13);
+}
+
+.confirmBtn:hover {
+  box-shadow: 0 8px 32px rgba(102, 13, 212, 0.20);
+  transform: translateY(-2px);
+}
+
+.cancelBtn, .backBtn {
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+
+.cancelBtn:hover, .backBtn:hover {
+  background: #e2e8f0;
+}
+.text {
+  color: #4a5568;
+  font-size: 16px;
+  margin-bottom: 16px;
+}

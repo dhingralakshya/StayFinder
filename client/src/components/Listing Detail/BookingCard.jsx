@@ -85,45 +85,18 @@ function BookingCard({ listing }) {
     setIsLoading(true);
     setError("");
 
-    try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          listingId: listing.id,
+    navigate("/booking/confirm", {
+      state: {
+        booking: {
+          ...form,
           checkIn: form.checkIn.toISOString().split('T')[0],
           checkOut: form.checkOut.toISOString().split('T')[0],
-          guests: form.guests,
-          message: form.message,
-          totalPrice: totalPrice
-        })
-      });
-
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || "Booking failed");
-      }
-
-      navigate(`/booking-confirmation`, { 
-        state: { 
-          booking: { 
-            ...form, 
-            checkIn: form.checkIn.toISOString().split('T')[0],
-            checkOut: form.checkOut.toISOString().split('T')[0],
-            listing, 
-            totalPrice, 
-            nights 
-          } 
+          listing,
+          totalPrice,
+          nights
         }
-      });
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
+      }
+    });
   };
 
   // Close date picker when clicking outside

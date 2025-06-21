@@ -12,6 +12,7 @@ const db = require('./models');
 
 const userRoutes = require('./routes/user');
 const listingRoutes = require('./routes/listing');
+const bookingRoutes = require('./routes/booking');
 
 app.use(cors());
 app.use(express.json());
@@ -20,6 +21,7 @@ app.use("/imagekit", require("./routes/imagekitAuth"));
 // Routes
 app.use('/users', userRoutes);
 app.use('/listing', listingRoutes);
+app.use('/booking', bookingRoutes);
 
 app.get('/', (req, res) => {
 res.send('StayFinder API is running!');
