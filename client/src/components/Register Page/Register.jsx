@@ -78,7 +78,7 @@ function Register() {
       if (decoded.role === "host") {
         navigate("/host/dashboard");
       } else {
-        navigate("/dashboard");
+        navigate("/");
       }
     } catch (err) {
       setServerError(err.message);

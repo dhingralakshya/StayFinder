@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: stayfinder-db
+    restart: always
+    environment:
+      POSTGRES_DB: stayfinder
+      POSTGRES_USER: stayfinderuser
+      POSTGRES_PASSWORD: stayfinderpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./server
+    container_name: stayfinder-backend
+    restart: always
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: development
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: stayfinder
+      DB_USER: stayfinderuser
+      DB_PASSWORD: stayfinderpass
+      # Or use DATABASE_URL if your backend expects it:
+      # DATABASE_URL: postgres://stayfinderuser:stayfinderpass@db:5432/stayfinder
+    depends_on:
+      - db
+
+  frontend:
+    build: ./client
+    container_name: stayfinder-frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:

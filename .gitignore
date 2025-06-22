@@ -2,3 +2,7 @@
 /server/node_modules
 /server/.env
 /client/.env
+/client/.env.development
+/client/.env.development.local
+/client/.env.production
+/client/.env.production.local
