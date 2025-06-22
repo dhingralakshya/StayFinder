@@ -131,7 +131,16 @@ function ListingDetailPage() {
                 
                 <div className={styles.description}>
                   <h3>About this place</h3>
-                  <p>{listing.description || "No description available."}</p>
+                  <p>
+                    {listing.description
+                      ? listing.description.split('\n').map((line, idx) => (
+                          <React.Fragment key={idx}>
+                            {line}
+                            <br />
+                          </React.Fragment>
+                        ))
+                      : "No description available."}
+                  </p>
                 </div>
                 <HostProfile host={listing.host} />
               </div>
