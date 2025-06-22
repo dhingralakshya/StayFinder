@@ -40,11 +40,14 @@ function CreateListingForm() {
     setIsLoading(true);
     setError("");
     try {
-      if (!form.imageUrls.length) {
-        setError("Please upload at least one image for your listing.");
-        setIsLoading(false);
-        return;
-      }
+      // if (!form.imageUrls.length) {
+      //   setError("Please upload at least one image for your listing.");
+      //   setIsLoading(false);
+      //   return;
+      // }
+      const imagesToSend = form.imageUrls.length
+        ? form.imageUrls
+        : ["https://ik.imagekit.io/ejzfsxdp8l/seedPhoto1_xad19yf6X9.avif"];
       const token = localStorage.getItem("token");
       const res = await fetch(`${process.env.REACT_APP_API_URL}/listing`, {
         method: "POST",
@@ -54,6 +57,7 @@ function CreateListingForm() {
         },
         body: JSON.stringify({
           ...form,
+          imageUrls: imagesToSend,
           price: Number(form.price)
         }),
       });
@@ -167,7 +171,7 @@ function CreateListingForm() {
         <button
           type="submit"
           className={styles.submitBtn}
-          disabled={isLoading || !form.imageUrls.length}
+          disabled={isLoading}
         >
           {isLoading ? "Adding..." : "Add Listing"}
         </button>
