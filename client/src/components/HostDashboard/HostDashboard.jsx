@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import styles from "./HostDashboard.module.css";
 
 function HostDashboard() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [accessDenied, setAccessDenied] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -12,6 +14,20 @@ function HostDashboard() {
     const fetchListings = async () => {
       try {
         const token = localStorage.getItem("token");
+        if (!token) {
+          navigate("/login?redirect=/host/dashboard");
+          return;
+        }
+        try {
+          const decoded = jwtDecode(token);
+          if (decoded.role !== "host") {
+            setAccessDenied(true);
+            return;
+          }
+        } catch (e) {
+          navigate("/login?redirect=/host/dashboard");
+          return;
+        }
         const res = await fetch(`${process.env.REACT_APP_API_URL}/listing/host/listing`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -29,7 +45,25 @@ function HostDashboard() {
       }
     };
     fetchListings();
-  }, []);
+  }, [navigate]);
+
+  if (accessDenied) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.statusCard}>
+          <div className={styles.statusIcon}>🚫</div>
+          <h2 className={styles.statusTitle}>Access Denied</h2>
+          <p className={styles.statusMessage}>This dashboard is only accessible to hosts.</p>
+          <button 
+            onClick={() => navigate('/login')} 
+            className={styles.actionButton}
+          >
+            Login as Host
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const handleEdit = (id) => {
     navigate(`/host/listing/edit/${id}`);
@@ -58,22 +92,69 @@ function HostDashboard() {
     navigate("/host/listing/new");
   };
 
+  if (loading) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.statusCard}>
+          <div className={styles.loader}></div>
+          <h2 className={styles.statusTitle}>Loading your listings...</h2>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.statusCard}>
+          <div className={styles.statusIcon}>⚠️</div>
+          <h2 className={styles.statusTitle}>Something went wrong</h2>
+          <p className={styles.statusMessage}>{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className={styles.actionButton}
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.dashboard}>
-      <h1 className={styles.heading}>Your Listings</h1>
-      <button className={styles.addButton} onClick={handleAddNew}>Add New Listing</button>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p className={styles.error}>{error}</p>
-      ) : listings.length === 0 ? (
-        <p>You have no listings yet.</p>
+      <div className={styles.header}>
+        <div className={styles.headerContent}>
+          <h1 className={styles.heading}>Your Listings</h1>
+          <p className={styles.subheading}>
+            {listings.length === 0 
+              ? "Start by creating your first listing" 
+              : `Managing ${listings.length} listing${listings.length !== 1 ? 's' : ''}`
+            }
+          </p>
+        </div>
+        <button className={styles.addButton} onClick={handleAddNew}>
+          <span className={styles.addIcon}>+</span>
+          Add New Listing
+        </button>
+      </div>
+
+      {listings.length === 0 ? (
+        <div className={styles.emptyState}>
+          <div className={styles.emptyIcon}>🏠</div>
+          <h3 className={styles.emptyTitle}>No listings yet</h3>
+          <p className={styles.emptyMessage}>
+            Create your first listing to start welcoming guests
+          </p>
+          <button className={styles.emptyButton} onClick={handleAddNew}>
+            Create Your First Listing
+          </button>
+        </div>
       ) : (
         <div className={styles.listingsGrid}>
           {listings.map(listing => (
             <div key={listing.id} className={styles.listingCard}>
-              {/* Gallery: show first image, and thumbnails if more */}
-              <div className={styles.galleryWrapper}>
+              <div className={styles.imageContainer}>
                 <img
                   src={
                     listing.imageUrls && listing.imageUrls.length > 0
@@ -84,30 +165,35 @@ function HostDashboard() {
                   className={styles.listingImage}
                 />
                 {listing.imageUrls && listing.imageUrls.length > 1 && (
-                  <div className={styles.thumbnailRow}>
-                    {listing.imageUrls.slice(1, 4).map((url, idx) => (
-                      <img
-                        key={idx}
-                        src={url}
-                        alt={`${listing.title} thumbnail ${idx + 2}`}
-                        className={styles.thumbnail}
-                      />
-                    ))}
-                    {listing.imageUrls.length > 4 && (
-                      <div className={styles.moreImages}>
-                        +{listing.imageUrls.length - 4} more
-                      </div>
-                    )}
+                  <div className={styles.imageCount}>
+                    📷 {listing.imageUrls.length}
                   </div>
                 )}
               </div>
-              <div className={styles.listingInfo}>
-                <h3>{listing.title}</h3>
-                <p>{listing.location}</p>
-                <p>{`\u20B9${listing.price} / night`}</p>
+              
+              <div className={styles.cardContent}>
+                <div className={styles.listingInfo}>
+                  <h3 className={styles.listingTitle}>{listing.title}</h3>
+                  <p className={styles.listingLocation}>📍 {listing.location}</p>
+                  <div className={styles.priceContainer}>
+                    <span className={styles.price}>₹{listing.price}</span>
+                    <span className={styles.priceUnit}>/ night</span>
+                  </div>
+                </div>
+                
                 <div className={styles.actions}>
-                  <button onClick={() => handleEdit(listing.id)} className={styles.editButton}>Edit</button>
-                  <button onClick={() => handleDelete(listing.id)} className={styles.deleteButton}>Delete</button>
+                  <button 
+                    onClick={() => handleEdit(listing.id)} 
+                    className={`${styles.actionBtn} ${styles.editBtn}`}
+                  >
+                    Edit
+                  </button>
+                  <button 
+                    onClick={() => handleDelete(listing.id)} 
+                    className={`${styles.actionBtn} ${styles.deleteBtn}`}
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>
