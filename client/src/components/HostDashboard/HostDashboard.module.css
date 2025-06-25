@@ -293,3 +293,44 @@
   .heading { font-size: 1.75rem; }
   .addButton { padding: 0.875rem 1.25rem; font-size: 0.9rem; }
 }
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modalContent {
+  background: #fff;
+  padding: 2rem 1.5rem;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow-y: auto;
+  max-height: 90vh;
+  overflow-x: hidden;
+}
+.modalClose {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+@media (max-width: 700px) {
+  .modalContent {
+    max-width: 98vw;
+    padding: 1rem 0.5rem;
+    min-width: 0;
+  }
+  .formWrapper {
+    padding: 16px 4px;
+    margin: 12px auto;
+    max-width: 99vw;
+  }
+}

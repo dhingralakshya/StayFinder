@@ -10,7 +10,7 @@ router.get('/:id', listingController.getListing);
 // Protected routes (host only)
 router.get('/host/listing', verifyJWT, requireRole('host'), listingController.getListingsByHost);
 router.post('/', verifyJWT, requireRole('host'), listingController.createListing);
-router.put('/:id', verifyJWT, requireRole('host'), listingController.editListing);
+router.patch('/:id', verifyJWT, requireRole('host'), listingController.editListing);
 router.delete('/:id', verifyJWT, requireRole('host'), listingController.deleteListing);
 
 module.exports = router;

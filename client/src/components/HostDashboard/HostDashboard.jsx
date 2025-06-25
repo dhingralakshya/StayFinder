@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import EditListingForm from "./EditListingForm";
 import styles from "./HostDashboard.module.css";
 
 function HostDashboard() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [accessDenied, setAccessDenied] = useState(false);
+  const [editingListingId, setEditingListingId] = useState(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -66,14 +68,20 @@ function HostDashboard() {
   }
 
   const handleEdit = (id) => {
-    navigate(`/host/listing/edit/${id}`);
+    setEditingListingId(id);
+  };
+  const handleEditClose = (updated) => {
+    setEditingListingId(null);
+    if (updated) {
+      window.location.reload();
+    }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this listing?")) return;
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/listings/${id}`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/listing/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -198,6 +206,23 @@ function HostDashboard() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+      {editingListingId && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <button
+              onClick={() => setEditingListingId(null)}
+              className={styles.modalClose}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <EditListingForm
+              listingId={editingListingId}
+              onClose={handleEditClose}
+            />
+          </div>
         </div>
       )}
     </div>

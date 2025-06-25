@@ -9,6 +9,7 @@ import HostDashboard from "./HostDashboard/HostDashboard";
 import CreateListingForm from "./HostDashboard/CreateListingForm";
 import BookingConfirmationPage from "./Booking Confirmation and Success/BookingConfirmationPage";
 import BookingSuccessPage from "./Booking Confirmation and Success/BookingSuccessPage";
+import EditListingForm from "./HostDashboard/EditListingForm.jsx";
 
 function App() {
   return (
@@ -18,9 +19,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<ListingsPage />} />
         <Route path="/listing/:id" element={<ListingDetailPage />} />
-        <Route path="/host/dashboard" element={<HostDashboard />} />
-        <Route path="/host/listing/new" element={<CreateListingForm />} />
+        <Route path="/host/listing/edit/:id" element={<EditListingForm />} />
         <Route element={<ProtectedRoute />}>
+          <Route path="/host/dashboard" element={<HostDashboard />} />
+          <Route path="/host/listing/new" element={<CreateListingForm />} />
           <Route path="/booking/confirm" element={<BookingConfirmationPage />} />
           <Route path="/booking/success" element={<BookingSuccessPage />} />
         </Route>

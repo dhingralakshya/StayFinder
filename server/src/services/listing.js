@@ -63,7 +63,7 @@ const createListing = async (title, description, price, location, hostId, imageU
 
 // Edit a listing (host only, must own the listing)
 const editListing = async (id, updates, hostId) => {
-  const allowedFields = ['title', 'description', 'price', 'location'];
+  const allowedFields = ['title', 'description', 'price', 'location', 'imageUrls'];
   const updateData = {};
   allowedFields.forEach(field => {
     if (updates[field] !== undefined) updateData[field] = updates[field];

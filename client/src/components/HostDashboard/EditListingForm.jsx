@@ -1,81 +1,110 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import ImageUpload from "../ImageKitUtility";
 import styles from "./CreateListingForm.module.css";
 
-function CreateListingForm() {
-  const [form, setForm] = useState({
-    title: "",
-    description: "",
-    price: "",
-    location: "",
-    imageUrls: [] // Array for multiple images
-  });
+function EditListingForm({ listingId, onClose }) {
+  const id = listingId;
+  const [form, setForm] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchListing = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/listing/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) throw new Error("Failed to fetch listing");
+        const data = await res.json();
+        setForm({
+          title: data.title,
+          description: data.description,
+          price: data.price,
+          location: data.location,
+          imageUrls: data.imageUrls || [],
+        });
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchListing();
+  }, [id]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setError("");
   };
 
-  // Called when an image is uploaded via ImageKit
   const handleImageUpload = (url) => {
     setForm((prev) => ({
       ...prev,
-      imageUrls: [...prev.imageUrls, url]
+      imageUrls: [...prev.imageUrls, url],
     }));
   };
 
   const handleRemoveImage = (idx) => {
     setForm((prev) => ({
       ...prev,
-      imageUrls: prev.imageUrls.filter((_, i) => i !== idx)
+      imageUrls: prev.imageUrls.filter((_, i) => i !== idx),
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsSubmitting(true);
     setError("");
     try {
-      // if (!form.imageUrls.length) {
-      //   setError("Please upload at least one image for your listing.");
-      //   setIsLoading(false);
-      //   return;
-      // }
-      const imagesToSend = form.imageUrls.length
-        ? form.imageUrls
-        : ["https://ik.imagekit.io/ejzfsxdp8l/seedPhoto1_xad19yf6X9.avif"];
       const token = localStorage.getItem("token");
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/listing`, {
-        method: "POST",
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/listing/${id}`, {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           ...form,
-          imageUrls: imagesToSend,
-          price: Number(form.price)
+          price: Number(form.price),
         }),
       });
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.message || "Failed to create listing");
+        throw new Error(err.message || "Failed to update listing");
       }
-      navigate("/host/dashboard");
+      if (res.ok) onClose(true);
     } catch (err) {
       setError(err.message);
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
+  if (loading) {
+    return (
+      <div className={styles.formWrapper}>
+        <div className={styles.heading}>Loading listing...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.formWrapper}>
+        <div className={styles.error}>{error}</div>
+      </div>
+    );
+  }
+
+  if (!form) return null;
+
   return (
     <div className={styles.formWrapper}>
-      <h2 className={styles.heading}>Add New Listing</h2>
+      <h2 className={styles.heading}>Edit Listing</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
         {error && <div className={styles.error}>{error}</div>}
         <div className={styles.inputGroup}>
@@ -171,14 +200,14 @@ function CreateListingForm() {
         <button
           type="submit"
           className={styles.submitBtn}
-          disabled={isLoading}
+          disabled={isSubmitting}
         >
-          {isLoading ? "Adding..." : "Add Listing"}
+          {isSubmitting ? "Updating..." : "Update Listing"}
         </button>
-        <button type="button" className={styles.cancelButton} onClick={() => navigate(-1)}>Cancel</button>
+        <button type="button" className={styles.cancelButton} onClick={() => onClose(false)}>Cancel</button>
       </form>
     </div>
   );
 }
 
-export default CreateListingForm;
+export default EditListingForm;
