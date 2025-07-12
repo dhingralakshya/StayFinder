@@ -10,4 +10,4 @@ COPY . .
 EXPOSE 4000
 
 # Run migrations then start server
-CMD npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && node src/server.js
+CMD npx sequelize-cli db:migrate && node src/server.js
