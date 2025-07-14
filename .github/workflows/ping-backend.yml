@@ -1,0 +1,14 @@
+name: Scheduled Backend Ping
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'   # Every 30 minutes
+  workflow_dispatch:         # Allows manual triggering
+
+jobs:
+  ping-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping backend health endpoint
+        run: |
+          curl -fsS https://stayfinder-eyro.onrender.com
